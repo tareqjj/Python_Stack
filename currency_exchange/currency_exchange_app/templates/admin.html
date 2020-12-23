@@ -1,21 +1,84 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-        <h1>Users</h1>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <h1 style="color: #ffc107">Users</h1>
         <div class="row">
-            <table class="table table-hover table-striped table-bordered table-dark col-7">
-                <tdead><th scope="col">Full Name</th><th scope="col">Category</th><th scope="col">USD_to_ILS</th><th scope="col">ALL</th><th scope="col">Block</th>
-                </tdead>
-                <tbody>
-                        <tr>
-                        <td>lieslvknelwk</td>
-                        <td>uysdgvkuwev</td>
-                        <td>ygasjhcgiua</td>
-                        <td>iaygefkjhweiuov</td>
-                        <td>gauehcevoi</td>
-                        </tr>
-                </tbody>
-            </table>
+            <div class="col-7" style="max-height: 400px; overflow-y: scroll;">
+                <table class="table table-hover table-striped table-bordered table-dark" style="">
+                    <tdead><th scope="col">Full Name</th><th scope="col">Category</th><th scope="col">USD_to_ILS</th><th scope="col">ALL</th><th scope="col">Block</th>
+                    </tdead>
+                    <tbody>
+                            <tr>
+                            <td>lieslvknelwk</td>
+                            <td>uysdgvkuwev</td>
+                            <td>ygasjhcgiua</td>
+                            <td>iaygefkjhweiuov</td>
+                            <td>gauehcevoi</td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="width: 50%;" class="col-5">
+                <canvas id="myChart" ></canvas>
+            </div>
         </div>
+            <h1 style="color: #ffc107">Current Users</h1>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-hover table-striped table-bordered table-dark" style="">
+                            <tdead><th scope="col">Full Name</th><th scope="col">Category</th><th scope="col">USD_to_ILS</th><th scope="col">ALL</th><th scope="col">Block</th>
+                            </tdead>
+                            <tbody>
+                                    <tr>
+                                    <td>lieslvknelwk</td>
+                                    <td>uysdgvkuwev</td>
+                                    <td>ygasjhcgiua</td>
+                                    <td>iaygefkjhweiuov</td>
+                                    <td>gauehcevoi</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            <script>
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri'],
+                    datasets: [{
+                        label: 'transactions over time',
+                        borderColor: '#ffc107',
+                        data: [1, 2, 5, 3, 2, 4, 1]
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    legend: {
+                        labels: {
+                            fontColor: '#ffc107'
+                        }
+                    },
+                                        scales:{
+                        xAxes:[{
+                            ticks: {
+                                fontColor: "#ffc107"
+                            }
+                        }],
+                        yAxes:[{
+                            ticks: {
+                                fontColor: "#ffc107"
+                            }
+                        }]
+                    }
+                }
+            });
+            </script>
+
 {% endblock content %}

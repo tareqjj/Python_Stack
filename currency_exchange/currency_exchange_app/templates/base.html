@@ -14,13 +14,13 @@
         <script src="://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         {% load static %}
     </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body class="bg-secondary">
+    <header class="row bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-light  col-12">
             <div class="container-fluid bg-dark">
                 <div>
-                    <img src= {% static "img/Asset_24x.png" %} height="50px">
-                    <a class="navbar-brand text-warning" href="#">The New Exchange</a>
+                    <img height="50px" src= {% static "img/Asset_24x.png" %} >
+                    <a class="navbar-brand text-warning" href="#">The New ✘change</a>
                 </div>
                 <div class="navbar-nav">
                     <a class="nav-link active text-warning" aria-current="page" href="#">Home</a>
@@ -31,7 +31,7 @@
             </div>
         </nav>
     </header>
-    <main>{% block content %}{% endblock %}</main>
-    <footer>Contact Info</footer>
+    <main class="col-12 ">{% block content %}{% endblock %}</main>
+    <footer class="col-12">Contact Info</footer>
 </body>
 </html>
