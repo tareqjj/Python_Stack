@@ -19,19 +19,25 @@
         <nav class="navbar navbar-expand-lg navbar-light  col-12">
             <div class="container-fluid bg-dark">
                 <div>
-                    <img height="50px" src= {% static "img/Asset_24x.png" %} >
+                    <img height="50px" src= {% static "img/Asset_24x.png" %}>
                     <a class="navbar-brand text-warning" href="#">The New ✘change</a>
                 </div>
                 <div class="navbar-nav">
-                    <a class="nav-link active text-warning" aria-current="page" href="#">Home</a>
-                    <a class="nav-link text-warning" href="#">Features</a>
-                    <a class="nav-link text-warning" href="#">Pricing</a>
-                    <a class="nav-link text-warning disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    {#% if request.session.logged_in %}
+                    <a class="nav-link active text-warning" aria-current="page" href="#">Login/Register</a>
+                    {#% endif %}
+                     {#% if not request.session.logged_in %}
+                    <a class="nav-link active text-warning" aria-current="page" href="#">My Profile</a>
+                    {#% endif %}
+                    <a class="nav-link text-warning" href="#">About Us</a>
+                    <a class="nav-link text-warning" href="#">Privacy Policy</a>
                 </div>
             </div>
         </nav>
     </header>
     <main class="col-12 ">{% block content %}{% endblock %}</main>
-    <footer class="col-12">Contact Info</footer>
+    <footer class="row bg-dark text-warning ">
+        <p class="col-12">Contact Info</p>
+    </footer>
 </body>
 </html>
