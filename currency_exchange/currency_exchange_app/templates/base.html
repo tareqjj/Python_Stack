@@ -23,13 +23,15 @@
                     <a class="navbar-brand text-warning" href="#">The New Exchange</a>
                 </div>
                 <div class="navbar-nav">
-                  <a class="nav-link active text-warning" aria-current="page" href="#">Home</a>
-                  <a class="nav-link text-warning" href="#">Features</a>
-                  <a class="nav-link text-warning" href="#">Pricing</a>
-                  <a class="nav-link text-warning disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-              </div>
+                    <a class="nav-link active text-warning" aria-current="page" href="#">Home</a>
+                    <a class="nav-link text-warning" href="#">Features</a>
+                    <a class="nav-link text-warning" href="#">Pricing</a>
+                    <a class="nav-link text-warning disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </div>
             </div>
-          </nav>
+        </nav>
     </header>
+    <main>{% block content %}{% endblock %}</main>
+    <footer>Contact Info</footer>
 </body>
 </html>
