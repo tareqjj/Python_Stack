@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<main class="row">
+    <div class="col-4">
+        <canvas id="myChart" ></canvas>
+        <canvas id="myChart1"></canvas>
+    </div>
+
+    <div  class="col-4 ">
+        <img src={% static "img/infograph.jpg" %} width="450px">
+    </div>
+    <div class=" col-4">
+        <canvas id="myChart2"></canvas>
+        <canvas id="myChart3"></canvas>
+    </div>
+</main>
+
+<div class="row"> 
+    <div class="col-12">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">unit</th>
+                    <th scope="col">Currency</th>
+                    <th scope="col">Base</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">$</th>
+                    <td>USD</td>
+                    <td>ILS</td>
+                    <td>3.25</td>
+                    <td>12/23/2020</td>
+                </tr>
+                <tr>
+                    <th scope="row">د.ا</th>
+                    <td>JOD</td>
+                    <td>ILS</td>
+                    <td>4.58</td>
+                    <td>12/23/2020</td>
+                </tr>
+                <tr>
+                    <th scope="row">€</th>
+                    <td>EUR</td>
+                    <td>ILS</td>
+                    <td>3.97</td>
+                    <td>12/23/2020</td>
+                </tr>
+                <tr>
+                    <th scope="row">¥</th>
+                    <td>JPY</td>
+                    <td>ILS</td>
+                    <td>0.031</td>
+                    <td>12/23/2020</td>
+                </tr>
+                <tr>
+                    <th scope="row">£</th>
+                    <td>GBP</td>
+                    <td>ILS</td>
+                    <td>4.31</td>
+                    <td>12/23/2020</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+    // The data for our dataset
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+            label: 'USD price over time',
+            borderColor: 'gold',
+            data: [35, 45, 40, 60, 40, 30, 45]
+        }]
+    },
+    // Configuration options go here
+    options: {}
+});
+</script>
+    <script>
+        var ctx = document.getElementById('myChart1').getContext('2d');
+        var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+        // The data for our dataset
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'USD price over time',
+                borderColor: 'gold',
+                data: [0, 10, 55, 30, 20, 100, 45]
+            }]
+        },
+        // Configuration options go here
+        options: {}
+    });
+    </script>
+        <script>
+            var ctx = document.getElementById('myChart2').getContext('2d');
+            var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+            // The data for our dataset
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'USD price over time',
+                    borderColor: 'gold',
+                    data: [0, 10, 5, 100, 20, 30, 45]
+                }]
+            },
+            // Configuration options go here
+            options: {}
+        });
+        </script>
+            <script>
+                var ctx = document.getElementById('myChart3').getContext('2d');
+                var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+                // The data for our dataset
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [{
+                        label: 'USD price over time',
+                        borderColor: 'gold',
+                        data: [100, 70, 80, 60, 40, 50, 45]
+                    }]
+                },
+                // Configuration options go here
+                options: {}
+            });
+            </script>
+{% endblock content %}
