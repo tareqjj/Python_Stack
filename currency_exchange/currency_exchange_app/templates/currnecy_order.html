@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div>
+        <form action="#" method="post">
+            {% csrf_token %}
+            <div class="row g-3 align-items-center col-12 offset-3">
+              <div class="col-2">
+                <div class="col-auto">
+                    <label class="col-form-label">Amount</label>
+                </div>
+                <div class="col-auto">
+                    <input type="number" class="form-control">
+                </div>
+              </div>
+                <div class="col-1">
+                  <div class="col-auto">
+                    <label >From</label>
+                  </div>
+                  <div class="col-auto">
+                    <select class="form-control">
+                        <option>USD</option>
+                        <option>GBP</option>
+                        <option>JPY</option>
+                        <option>JOD</option>
+                        <option>ILS</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-1">
+                  <div class="col-auto">
+                    <label >TO</label>
+                  </div>
+                  <div class="col-auto">
+                    <select class="form-control">
+                        <option>USD</option>
+                        <option>GBP</option>
+                        <option>JPY</option>
+                        <option>JOD</option>
+                        <option>ILS</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-1">
+                    <div class="col-auto">
+                        <label class="col-form-label"></label>
+                    </div>
+                    <div class="col-auto">
+                        <button type="number" class="form-control btn btn-warning">Excute</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+<br><br><br>
+    <div class="row">
+        <div class=" g-3 align-items-center col-6">
+            <table class="table table-hover table-striped table-bordered table-dark" style="">
+                <tdead><th scope="col">Transaction</th><th scope="col">Date : Time</th><th scope="col">From</th><th scope="col">Amount</th><th scope="col">To</th><th scope="col">Amount</th><th scope="col">Rate</th>
+                </tdead>
+                <tbody>
+                        <tr>
+                        <td>7835279875juef3</td>
+                        <td>2020-12-23 : 06:15 PM</td>
+                        <td>USD</td>
+                        <td>100</td>
+                        <td>ILS</td>
+                        <td>325</td>
+                        <td>3.25</td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row g-3 align-items-center col-6 ">
+            <canvas id="myChart" ></canvas>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri'],
+        datasets: [{
+            label: 'transactions over time',
+            borderColor: '#ffc107',
+            data: [1, 2, 5, 3, 2, 4, 1]
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+        legend: {
+            labels: {
+                fontColor: '#ffc107'
+            }
+        },
+                            scales:{
+            xAxes:[{
+                ticks: {
+                    fontColor: "#ffc107"
+                }
+            }],
+            yAxes:[{
+                ticks: {
+                    fontColor: "#ffc107"
+                }
+            }]
+        }
+    }
+});
+</script>
+{% endblock content %}
