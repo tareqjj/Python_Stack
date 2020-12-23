@@ -11,3 +11,8 @@ def display_user(request):
 def display_admin(request):
     return render(request, "admin.html")
 
+def log_reg(request):
+    return render(request, 'log_reg.html')
+
+def currency_order(request):
+    return render(request, "currnecy_order.html")

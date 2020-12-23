@@ -1,6 +1,74 @@
-{% extends "base.html" %}
-{% load static %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>the New Xchange</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="carousel.css" rel="stylesheet">
+  </head>
+  <body>
+    
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div  class="container-fluid">
+      <div>
+        <img height="40px" style="margin-right: 20px;" src="Asset_24x.png">
+        <a class="navbar-brand text-warning" href="#">The New ✘change</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="d-flex">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item active">
+              <a class="nav-link text-warning" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning" href="#">Log in/Register</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li> -->
+          </ul>
+          <!-- <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-warning" type="submit">Search</button>
+          </form> -->
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
 <main class="bg-secondary">
 
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -22,7 +90,7 @@
       </div>
       <div class="carousel-item">
         <canvas height="75px" id="myChart"></canvas>
-
+        
       </div>
     </div>
     <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">
@@ -45,20 +113,20 @@
     <!-- Three columns of text below the carousel -->
     <div class="row">
       <div class="col-lg-4">
-        <img height="175px" src="{% static 'img/usd.png' %}">
-
+        <img height="175px" src="usd.png">
+        
         <h2 class="text-light">Competitive Rates</h2>
         <p class="text-light">Enjoy the convenience of online banking without the bank's exorbitant rates and fees.</p><br>
         <p><a class="btn btn-secondary btn-outline-warning text-warning" href="#" role="button">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
-        <img height="175px" src="{% static 'img/secure.png' %}">
+        <img height="175px" src="secure.png">
         <h2 class="text-light" >Safe  and  Secure</h2>
         <p class="text-light">We use top level encryption to protect your account information and monitor your account activity to help identify unauthorized transactions.</p>
         <p><a class="btn btn-secondary btn-outline-warning text-warning" href="#" role="button">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
-        <img height="175px" src="{% static 'img/creditCard.png' %}">
+        <img height="175px" src="creditCard.png">
         <h2 class="text-light">All Major Debit Cards</h2>
         <p class="text-light">Use your debit card effortlessly to process payment and receive funds  instantly. We exchange for all five major currencies including USD, EUR, JOD, ILS and JPY.</p>
         <p><a class="btn btn-secondary btn-outline-warning text-warning" href="#" role="button">View details &raquo;</a></p>
@@ -81,7 +149,7 @@
 </main>
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-
+      
   </body>
   <script>
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -122,4 +190,3 @@
 });
 </script>
 </html>
-{% endblock content %}

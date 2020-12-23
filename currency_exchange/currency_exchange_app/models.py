@@ -13,6 +13,8 @@ class User(models.Model):
     mobile_num = models.IntegerField()
     email = models.EmailField()
     password = models.CharField(max_length=255)
+    type = models.BinaryField(default=0)
+    logged = models.BinaryField(default=0)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, related_name="categories", on_delete= models.CASCADE)
