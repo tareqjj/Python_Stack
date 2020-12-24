@@ -1,0 +1,9 @@
+                {% for user in users %}
+                    <tr>
+                    <td>{{ user['first_name'] }} {{ user['last_name'] }}</td>
+                    <td>{{ user['Category'] }}</td>
+                    <td>{{ user['USD_to_ILS'] }}</td>
+                    <td>{{ user['ALL'] }}</td>
+                    <td>{{ user['Block'] }}</td>
+                    </tr>
+                {% endfor %}
