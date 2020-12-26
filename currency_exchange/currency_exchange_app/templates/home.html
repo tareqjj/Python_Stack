@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/highcharts.css' %}">
 {% block content %}
-<main class="bg-secondary">
+<div class="bg-secondary">
 
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
@@ -11,17 +12,19 @@
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <!-- <canvas height="80px" id="myChart"></canvas> -->
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
+        <figure class="highcharts-figure" >
+            <div id="usd_ils"></div>
+        </figure>
       </div>
       <div class="carousel-item">
-        <!-- <canvas height="80px" id="myChart"></canvas> -->
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
+          <figure class="highcharts-figure">
+            <div id="gbp_ils"></div>
+          </figure>
       </div>
       <div class="carousel-item">
-        <canvas height="75px" id="myChart"></canvas>
+          <figure class="highcharts-figure">
+            <div id="jpy_ils"></div>
+          </figure>
 
       </div>
     </div>
@@ -29,7 +32,7 @@
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </a>
-    <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next">
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next" style="height: 200px; margin-top: 150px">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </a>
@@ -73,53 +76,183 @@
   </div><!-- /.container -->
 
 
-  <!-- FOOTER -->
-  <footer class="container bg-dark col-12">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2020 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-  </footer>
-</main>
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-
-  </body>
+</div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
-
-    // The data for our dataset
-    data: {
-        labels: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri'],
-        datasets: [{
-            label: 'transactions over time',
-            borderColor: '#ffc107',
-            data: [1, 2, 5, 3, 2, 4, 1]
-        }]
+        Highcharts.chart('usd_ils', {
+    chart: {
+        zoomType: 'x'
+    },
+    title: {
+        text: 'USD to ILS exchange rate over time'
+    },
+    subtitle: {
+        text: document.ontouchstart === undefined ?
+            'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+    },
+    xAxis: {
+        type: 'datetime'
+    },
+    yAxis: {
+        title: {
+            text: 'Exchange rate'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        area: {
+            fillColor: {
+                linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                },
+                stops: [
+                    [0, Highcharts.getOptions().colors[1]],
+                    [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                ]
+            },
+            marker: {
+                radius: 2
+            },
+            lineWidth: 1,
+            states: {
+                hover: {
+                    lineWidth: 1
+                }
+            },
+            threshold: null
+        }
     },
 
-    // Configuration options go here
-    options: {
-        legend: {
-            labels: {
-                fontColor: '#ffc107'
+
+  series: [{
+        type: 'area',
+        name: 'USD to EUR',
+        data: {{list1}}
+  }]});
+
+
+
+         Highcharts.chart('jpy_ils', {
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: 'JPY to ILS exchange rate over time'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: 'Exchange rate'
             }
         },
-                            scales:{
-            xAxes:[{
-                ticks: {
-                    fontColor: "#ffc107"
-                }
-            }],
-            yAxes:[{
-                ticks: {
-                    fontColor: "#ffc107"
-                }
-            }]
-        }
-    }
-});
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[1]],
+                        [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
+        },
+      series: [{
+            type: 'area',
+            name: 'USD to EUR',
+            data: {{list2}}
+      }]});
+
+
+
+
+
+          Highcharts.chart('gbp_ils', {
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: 'GBP to ILS exchange rate over time'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: 'Exchange rate'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[1]],
+                        [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
+        },
+      series: [{
+            type: 'area',
+            name: 'USD to EUR',
+            data: {{list3}}
+      }]});
 </script>
 </html>
+
 {% endblock content %}

@@ -2,8 +2,8 @@
 
 {% block content %}
     <div style="display: flex; align-items: start; justify-content: space-evenly">
-        <h1>Log In</h1>
-        <div class="row g-3 align-items-center">
+        <h1 class="text-dark">Log In</h1>
+        <div class="row g-3 align-items-center text-dark">
               <form class="px-4 py-3" action="/log_in" method="post">
                   {% csrf_token %}
                 <div class="mb-3">
@@ -17,8 +17,8 @@
                 <button type="submit" class="btn btn-warning">Log in</button>
               </form>
         </div>
-        <h1>Register</h1>
-        <div class="row g-3 align-items-center col-auto">
+        <h1 class="text-dark">Register</h1>
+        <div class="row g-3 align-items-center col-auto text-dark">
 
               <form class="px-4 py-3 " action="/register" method="post">
                   {% csrf_token %}

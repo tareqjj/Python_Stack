@@ -37,14 +37,14 @@
 
     <!-- Custom styles for this template -->
   </head>
-  <body>
+  <body class='bg-secondary'>
 
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div  class="container-fluid">
           <div>
             <img height="40px" style="margin-right: 20px;" src="{% static 'img/Asset_24x.png' %}">
-            <a class="navbar-brand text-warning" href="#">The New ✘change</a>
+            <a class="navbar-brand text-warning" href="/">The New ✘change</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -53,28 +53,22 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item active">
-                  <a class="nav-link text-warning" aria-current="page" href="#">Home</a>
+                  <a class="nav-link text-warning" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-warning" href="#">Log in/Register</a>
+                  <a class="nav-link text-warning" href="/LogInRegister">Log in/Register</a>
                 </li>
-                <!-- <li class="nav-item">
-                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li> -->
               </ul>
-              <!-- <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-warning" type="submit">Search</button>
-              </form> -->
             </div>
           </div>
         </div>
       </nav>
     </header>
-    <main class="col-12 ">{% block content %}{% endblock %}</main>
-    <footer class="footer mt-auto py-3 bg-dark text-warning ">
-        <p class="col-12">Contact Info</p>
-    </footer>
+    <main class="col-12 bg-secondary">{% block content %}{% endblock %}</main>
+  <footer class="container  bg-dark" style=" position: fixed; bottom:0px; left:100px; right:100px">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; 2020 Company, Inc. &middot; <a href="#">Privacy Terms</a></p>
+  </footer>
 </body>
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </html>
