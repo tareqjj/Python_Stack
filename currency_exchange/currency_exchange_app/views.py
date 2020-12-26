@@ -101,6 +101,18 @@ def log_reg(request):
     return render(request, 'log_reg.html')
 
 
+def reg_validate(request):
+    errors = models.User.objects.basic_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return render(request, 'errors_index.html')
+    else:
+        user_id = models.registration(request.POST)
+        request.session['logged_id'] = user_id
+        return redirect('/register')    
+
+
 def register(request):
     errors = models.User.objects.basic_validator(request.POST)
     if len(errors) > 0:
@@ -112,6 +124,17 @@ def register(request):
         request.session['logged_id'] = user_id
         return redirect("/currency_order")
 
+def login_validate(request):
+    errors = models.User.objects.login_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return render(request, 'errors_index.html')
+    else:
+        context = models.log_in(request.POST)
+        if context['flag']:
+            request.session['logged_id'] = context['this_user'].id
+            return redirect('/log_in')
 
 def log_in(request):
     errors = models.User.objects.login_validator(request.POST)
