@@ -66,8 +66,8 @@ class User(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=255)
     birth_date = models.DateField(null=True)
-    # type = models.BinaryField(default=0)
-    # logged = models.BinaryField(default=0)
+    typeU = models.IntegerField(default=0)
+    logged = models.IntegerField(default=0)
     # category = models.ForeignKey(Category, related_name="categories", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
@@ -114,13 +114,16 @@ class Transaction(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     rate = models.ForeignKey(Rate, related_name="rates", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="users", on_delete=models.CASCADE)
 
 
 def Transfer(Payment_Info, user_id):
     hash_DCN = bcrypt.hashpw(Payment_Info['card_number'].encode(), bcrypt.gensalt()).decode()
     hash_cvv = bcrypt.hashpw(Payment_Info['cvv'].encode(), bcrypt.gensalt()).decode()
+    payment_info_user = PaymentInfo.objects.filter(user= User.objects.get(id=user_id))
+    # payment_info_user_id = payment_info_user[0].id
     PaymentInfo.objects.create(userName=Payment_Info['user_name'], user=User.objects.get(id=user_id), debitCardHash=hash_DCN, cvv_hash=hash_cvv)
-    Transaction.objects.create(fromC=Payment_Info['from'], fromU=User.objects.get(id=user_id), toC=Payment_Info['to'], amount=Payment_Info['amount'], rate=Rate.objects.latest('timestamp'))
+    Transaction.objects.create(fromC=Payment_Info['from'], fromU=payment_info_user[0], toC=Payment_Info['to'], amount=Payment_Info['amount'], rate=Rate.objects.latest('timestamp'), user= User.objects.get(id=user_id))
 
 
 def registration(new_user):
@@ -143,3 +146,34 @@ def log_in(log_in_data):
             'flag': False
         }
         return context
+
+def update_user(user_id, userInfo):
+    User.objects.filter(id=user_id).update(first_name=userInfo['first_name'], last_name=userInfo['last_name'],
+                               email=userInfo['email'])
+
+def trans_table(user_id):
+    
+    payment_info = PaymentInfo.objects.filter(user=User.objects.get(id=user_id))
+    trans = Transaction.objects.filter(user=User.objects.get(id=user_id))
+    # for tran in trans:
+
+        # x = Rate.objects.get(id=tran.rate.id)
+        # y = tran.fromC
+        # print(x[y], '**********************')
+    
+    # fromc = trans[0].fromC
+    # print(trans[0].rate[f'{fromc}'], '*****************************')
+    # print(fromc, '******************5555')
+    # toc = trans.toC
+    # ratefrom= trans.rate.fromc
+    # rateto=trans.rate.toc
+    # ratex=float(rateto)/float(ratefrom)
+    # totalx = trans.amount * ratex
+    # context = {
+    #     'trans': tran,
+    #     'amountto': totalx,
+    #     'rate': ratex
+    # }
+
+    
+    return trans
