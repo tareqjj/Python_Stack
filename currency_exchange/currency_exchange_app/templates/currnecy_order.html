@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div>
-        <form action="#" method="post">
+    <div style="margin-top: 64px">
+        <form action="/payment" method="post" >
             {% csrf_token %}
-            <div class="row g-3 align-items-center col-12 offset-3">
+            <div class="row g-3 align-items-center text-dark col-12 offset-3">
               <div class="col-2">
-                <div class="col-auto">
-                    <label class="col-form-label">Amount</label>
+                <div>
+                    <label class="col-form-label" style="padding:0px">Amount</label>
                 </div>
-                <div class="col-auto">
-                    <input type="number" class="form-control">
+                <div >
+                    <input type="number" class="form-control" name="amount">
                 </div>
               </div>
                 <div class="col-1">
-                  <div class="col-auto">
+                  <div >
                     <label >From</label>
                   </div>
-                  <div class="col-auto">
-                    <select class="form-control">
+                  <div >
+                    <select class="form-control" name="from">
                         <option>USD</option>
                         <option>GBP</option>
                         <option>JPY</option>
@@ -28,11 +28,11 @@
                   </div>
                 </div>
                 <div class="col-1">
-                  <div class="col-auto">
+                  <div >
                     <label >TO</label>
                   </div>
-                  <div class="col-auto">
-                    <select class="form-control">
+                  <div >
+                    <select class="form-control" name="to">
                         <option>USD</option>
                         <option>GBP</option>
                         <option>JPY</option>
@@ -80,15 +80,15 @@
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, {
     // The type of chart we want to create
-    type: 'line',
+    type: 'bar',
 
     // The data for our dataset
     data: {
-        labels: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri'],
+        labels: ['', 'USD', 'JOD', 'GBP', 'JPY /100', 'ILS'],
         datasets: [{
-            label: 'transactions over time',
+            label: 'current rates against ILS',
             borderColor: '#ffc107',
-            data: [1, 2, 5, 3, 2, 4, 1]
+            data: [0, {{USD}}, {{JOD}}, {{GBP}}, {{JPY}}, {{ILS}}]
         }]
     },
 
