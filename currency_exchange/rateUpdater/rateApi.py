@@ -19,7 +19,7 @@ def _get_rate_json():
         return None
 
 
-def update_forecast():
+def update_rate():
     json = _get_rate_json()
     if json is not None:
         try:

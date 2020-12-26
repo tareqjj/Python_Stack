@@ -1,17 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    {% if messages %}
-    <ul class="messages">
-            {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-        {% endif %}
+
     <div class='col-4 offset-4'>
         <form action="Transfer" method="post" class="text-dark">
             <div>
-                <h2 class='text-warning text-center'>User Profile</h2>
+                <h2 class='text-warning text-center'>Payment Info</h2>
             </div>
             {% csrf_token %}
             <div class="row g-3 align-items-center">
@@ -41,13 +35,22 @@
                     <input type="number" name="cvv" maxlength="4" class="form-control">
                 </div>
             </div>
+            <input type="hidden" value="{{TransferInfo.amount}}" name="amount">
+            <input type="hidden" value="{{TransferInfo.from}}" name="from">
+            <input type="hidden" value="{{TransferInfo.to}}" name="to">
             <br>
             <div class="row g-3 align-items-center">
                 <div class="col-12">
-                    <button type="submit" class="btn btn-warning ">Update</button>
+                    <button type="submit" class="btn btn-warning ">Transfer</button>
                 </div>
             </div>
-
+            {% if messages %}
+    <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }} text-info"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+        {% endif %}
         </form>
     </div>
 {% endblock content %}

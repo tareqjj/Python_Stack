@@ -2,6 +2,7 @@ from django.db import models
 import bcrypt
 import datetime
 from datetime import datetime
+from django.utils import timezone
 from django.utils.dateparse import parse_date
 import re
 # Create your models here.
@@ -11,10 +12,10 @@ class CardManager(models.Manager):
     def card_validator(self, CardInfo):
         errors = {}
         EMAIL_REGEX = re.compile(r'^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})$')
-        if not EMAIL_REGEX.match(CardInfo['email']):
+        if not EMAIL_REGEX.match(CardInfo['card_number']):
             errors['CardNumber'] = "Invalid Card Number!"
-        if (datetime.date.today() - parse_date(CardInfo['birth_date'])).seconds < 0:
-            errors['COPPA'] = 'This Credit Debit is Expired'
+        if str(timezone.now()) > CardInfo['expire']:
+            errors['COPPA'] = 'This Debit Card is Expired'
         return errors
 
 
@@ -74,7 +75,6 @@ class Transaction(models.Model):
     amount = models.FloatField()
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, related_name="users", on_delete=models.CASCADE)
     rate = models.ForeignKey(Rate, related_name="rates", on_delete=models.CASCADE)
 
 
@@ -82,3 +82,4 @@ def Transfer(Payment_Info, user_id):
     hash_DCN = bcrypt.hashpw(Payment_Info['card_number'].encode(), bcrypt.gensalt()).decode()
     hash_cvv = bcrypt.hashpw(Payment_Info['cvv'].encode(), bcrypt.gensalt()).decode()
     PaymentInfo.objects.create(userName=Payment_Info['user_name'], user=User.objects.get(id=user_id), debitCardHash=hash_DCN, cvv_hash=hash_cvv)
+    Transaction.objects.create(fromC=Payment_Info['from'], fromU=User.objects.get(id=user_id), toC=Payment_Info['to'], amount=Payment_Info['amount'], rate=Rate.objects.latest('timestamp'))

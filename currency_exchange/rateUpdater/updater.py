@@ -5,5 +5,5 @@ from rateUpdater import rateApi
 
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(rateApi.update_forecast, 'interval', minutes=45)
+    scheduler.add_job(rateApi.update_rate, 'interval', minutes=45)
     scheduler.start()

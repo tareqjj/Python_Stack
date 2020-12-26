@@ -2,15 +2,15 @@
 
 {% block content %}
     <div style="margin-top: 64px">
-        <form action="#" method="post" >
+        <form action="/payment" method="post" >
             {% csrf_token %}
-            <div class="row g-3 align-items-center col-12 offset-3">
+            <div class="row g-3 align-items-center text-dark col-12 offset-3">
               <div class="col-2">
                 <div>
                     <label class="col-form-label" style="padding:0px">Amount</label>
                 </div>
                 <div >
-                    <input type="number" class="form-control">
+                    <input type="number" class="form-control" name="amount">
                 </div>
               </div>
                 <div class="col-1">
@@ -18,7 +18,7 @@
                     <label >From</label>
                   </div>
                   <div >
-                    <select class="form-control">
+                    <select class="form-control" name="from">
                         <option>USD</option>
                         <option>GBP</option>
                         <option>JPY</option>
@@ -32,7 +32,7 @@
                     <label >TO</label>
                   </div>
                   <div >
-                    <select class="form-control">
+                    <select class="form-control" name="to">
                         <option>USD</option>
                         <option>GBP</option>
                         <option>JPY</option>
