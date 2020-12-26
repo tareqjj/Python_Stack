@@ -6,16 +6,21 @@
         <div class="row">
             <div class="col-7" style="max-height: 400px; overflow-y: scroll;">
                 <table class="table table-hover table-striped table-bordered table-dark" style="">
-                    <tdead><th scope="col">Full Name</th><th scope="col">Category</th><th scope="col">USD_to_ILS</th><th scope="col">ALL</th><th scope="col">Block</th>
+                    <tdead><th scope="col">Full Name</th><th scope="col">USD_to_ILS</th><th scope="col">ALL</th><th scope="col">Block</th>
                     </tdead>
+<!--                    this is to be added to the database-->
+<!--                    <th scope="col">Category</th>-->
                     <tbody>
-                            <tr>
-                            <td>lieslvknelwk</td>
-                            <td>uysdgvkuwev</td>
-                            <td>ygasjhcgiua</td>
-                            <td>iaygefkjhweiuov</td>
-                            <td>gauehcevoi</td>
-                            </tr>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.first_name }} {{ user.last_name }}</td>
+<!--                    this on hold
+                        <td>{#{ user['Category'] }}</td>-->
+                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox"></td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -27,16 +32,22 @@
             <h1 style="color: #ffc107">Current Users</h1>
             <div class="col-12" style="min-height: 400px;">
                 <table class="table table-hover table-striped table-bordered table-dark" style="">
-                    <tdead><th scope="col">Full Name</th><th scope="col">Category</th><th scope="col">USD_to_ILS</th><th scope="col">ALL</th><th scope="col">Block</th>
+                    <tdead><th scope="col">Full Name</th><th scope="col">USD_to_ILS</th><th scope="col">ALL</th><th scope="col">Block</th>
                     </tdead>
                     <tbody>
+<!--                    this is to be added to the database-->
+<!--                    <th scope="col">Category</th>-->
+<!--                        {#% for user in users %}-->
                             <tr>
-                            <td>lieslvknelwk</td>
-                            <td>uysdgvkuwev</td>
-                            <td>ygasjhcgiua</td>
-                            <td>iaygefkjhweiuov</td>
-                            <td>gauehcevoi</td>
+                                <td>{{ users.0.first_name }} {{ users.0.last_name }}</td>
+<!--                            this on hold
+                                <td>{#{ user['Category'] }}</td>-->
+
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
                             </tr>
+<!--                        {#% endfor %}-->
                     </tbody>
                 </table>
             </div>
@@ -54,7 +65,7 @@
                     datasets: [{
                         label: 'transactions in the past week',
                         borderColor: '#ffc107',
-                        data: [0, 2, 2, 3, 2, 4, 3]
+                        data: [{{}}, 2, 2, 3, 2, 4, 3]
                     }]
                 },
 

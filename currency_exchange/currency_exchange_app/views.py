@@ -94,7 +94,17 @@ def transfer(request):
 
 
 def display_admin(request):
-    return render(request, "admin.html")
+    # this is under development
+    user = models.User.objects.get(id=request.session['logged_id'])
+    if user.typeU == 0:
+        return redirect("/currency_order")
+    if user.typeU == 1:
+        context = {
+            'users': models.User.objects.all(),
+            'trans': models.Transaction.objects.all()
+        }
+        return render(request, "admin.html", context)
+
 
 
 def log_reg(request):
@@ -122,7 +132,13 @@ def register(request):
     else:
         user_id = models.registration(request.POST)
         request.session['logged_id'] = user_id
-        return redirect("/currency_order")
+        # this is under development
+        user = models.User.objects.get(id=user_id)
+        if user.typeU == 0:
+            return redirect("/currency_order")
+        if user.typeU == 1:
+            return redirect("/admin")
+
 
 def login_validate(request):
     errors = models.User.objects.login_validator(request.POST)
@@ -136,6 +152,7 @@ def login_validate(request):
             request.session['logged_id'] = context['this_user'].id
             return redirect('/log_in')
 
+
 def log_in(request):
     errors = models.User.objects.login_validator(request.POST)
     if len(errors) > 0:
@@ -146,7 +163,14 @@ def log_in(request):
         context = models.log_in(request.POST)
         if context['flag']:
             request.session['logged_id'] = context['this_user'].id
-            return redirect("/currency_order")
+            # this is under development
+            user = models.User.objects.get(id=context['this_user'].id)
+            if user.typeU == 0:
+                return redirect("/currency_order")
+            if user.typeU == 1:
+                print('*'*80)
+                print(user.typeU)
+                return redirect("/admin")
         else:
             messages.error(request, "you need to register")
             return redirect("/LogInRegister")
