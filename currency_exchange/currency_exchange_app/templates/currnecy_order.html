@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<a href="/log_out">Log Out</a>
     <div style="margin-top: 64px">
         <form action="/payment" method="post" >
             {% csrf_token %}
