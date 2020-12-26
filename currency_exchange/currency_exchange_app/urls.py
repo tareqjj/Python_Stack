@@ -15,6 +15,8 @@ urlpatterns = [
     url(r'^currency_order', views.DisplayUser.as_view()),
     path('payment', views.paymentInfo),
     path('Transfer', views.transfer),
-    path('privacy', views.privacy)
+    path('privacy', views.privacy),
+    url(r'^check_reg/$', views.reg_validate, name='check_reg'),
+    url(r'^check_login/$', views.login_validate, name='check_login'),
 ]
 
