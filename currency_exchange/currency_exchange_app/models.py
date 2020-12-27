@@ -11,7 +11,6 @@ import re
 class UserManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
-        # add keys and values to errors dictionary for each invalid field
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         if not EMAIL_REGEX.match(postData['email']):
             errors['email'] = "Invalid email address!"
@@ -27,13 +26,10 @@ class UserManager(models.Manager):
             errors["desc"] = "The birth date should be in the past!"
         if User.objects.filter(email=postData['email']):
             errors['not_unique'] = 'This Email is already registered'
-        # if (datetime.date.today() - parse_date(postData['birth_date'])).days < 4745:
-        #     errors['COPPA'] = 'This Application is not suitable for kids'
         return errors
 
     def login_validator(self, postData):
         errors = {}
-        # add keys and values to errors dictionary for each invalid field
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         if not EMAIL_REGEX.match(postData['email']):
             errors['email'] = "Invalid email address!"
@@ -62,13 +58,11 @@ class Category(models.Model):
 class User(models.Model):
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
-    # mobile_num = models.IntegerField()
     email = models.EmailField()
     password = models.CharField(max_length=255)
     birth_date = models.DateField(null=True)
     typeU = models.IntegerField(default=0)
     logged = models.IntegerField(default=0)
-    # category = models.ForeignKey(Category, related_name="categories", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     objects = UserManager()
@@ -82,6 +76,7 @@ class Rate(models.Model):
     GBP = models.FloatField()
     JPY = models.FloatField()
     ILS = models.FloatField()
+    EUR = models.FloatField(default=1.0)
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -113,17 +108,44 @@ class Transaction(models.Model):
     amount = models.FloatField()
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    rate = models.ForeignKey(Rate, related_name="rates", on_delete=models.CASCADE)
+    rate = models.FloatField()
     user = models.ForeignKey(User, related_name="users", on_delete=models.CASCADE)
+    total = models.FloatField()
+
+
+def rate_factory(symbol):
+    if symbol=="JPY":
+        x = Rate.objects.latest('timestamp')
+        print(x)
+        print("-"*30)
+        return x.JPY
+    elif symbol=="GBP":
+        x = Rate.objects.latest('timestamp')
+        return x.GBP
+    elif symbol=="JOD":
+        x = Rate.objects.latest('timestamp')
+        return x.JOD
+    elif symbol=="ILS":
+        x = Rate.objects.latest('timestamp')
+        return x.ILS
+    elif symbol=="USD":
+        x = Rate.objects.latest('timestamp')
+        return x.USD
+    elif symbol=="EUR":
+        x = Rate.objects.latest('timestamp')
+        return x.EUR
 
 
 def Transfer(Payment_Info, user_id):
     hash_DCN = bcrypt.hashpw(Payment_Info['card_number'].encode(), bcrypt.gensalt()).decode()
     hash_cvv = bcrypt.hashpw(Payment_Info['cvv'].encode(), bcrypt.gensalt()).decode()
     payment_info_user = PaymentInfo.objects.filter(user= User.objects.get(id=user_id))
-    # payment_info_user_id = payment_info_user[0].id
     PaymentInfo.objects.create(userName=Payment_Info['user_name'], user=User.objects.get(id=user_id), debitCardHash=hash_DCN, cvv_hash=hash_cvv)
-    Transaction.objects.create(fromC=Payment_Info['from'], fromU=payment_info_user[0], toC=Payment_Info['to'], amount=Payment_Info['amount'], rate=Rate.objects.latest('timestamp'), user= User.objects.get(id=user_id))
+    x = rate_factory(Payment_Info['from'])
+    y = rate_factory(Payment_Info['to'])
+    totalrate = y/x   
+    toatal = int(Payment_Info["amount"]) * totalrate
+    Transaction.objects.create(fromC=Payment_Info['from'], fromU=payment_info_user[0], toC=Payment_Info['to'], amount=Payment_Info['amount'], rate=totalrate, user= User.objects.get(id=user_id), total=toatal)
 
 
 def registration(new_user):
@@ -152,28 +174,13 @@ def update_user(user_id, userInfo):
                                email=userInfo['email'])
 
 def trans_table(user_id):
-    
-    payment_info = PaymentInfo.objects.filter(user=User.objects.get(id=user_id))
-    trans = Transaction.objects.filter(user=User.objects.get(id=user_id))
-    # for tran in trans:
+    user_t = User.objects.get(id=user_id).users.all() 
+    list = []
+    for tran in user_t:
+        list.append(tran.amount * tran.rate)
+    context = {
+        'list': list,
+        'user_t': user_t
+    }
 
-        # x = Rate.objects.get(id=tran.rate.id)
-        # y = tran.fromC
-        # print(x[y], '**********************')
-    
-    # fromc = trans[0].fromC
-    # print(trans[0].rate[f'{fromc}'], '*****************************')
-    # print(fromc, '******************5555')
-    # toc = trans.toC
-    # ratefrom= trans.rate.fromc
-    # rateto=trans.rate.toc
-    # ratex=float(rateto)/float(ratefrom)
-    # totalx = trans.amount * ratex
-    # context = {
-    #     'trans': tran,
-    #     'amountto': totalx,
-    #     'rate': ratex
-    # }
-
-    
-    return trans
+    return context

@@ -15,11 +15,7 @@ def index(request):
     USD = requests.get('https://api.exchangeratesapi.io/history?start_at=2020-01-01&end_at=2020-12-25&base=USD&symbols=ILS')
     GBP = requests.get('https://api.exchangeratesapi.io/history?start_at=2020-01-01&end_at=2020-12-25&base=GBP&symbols=ILS')
     JPY = requests.get('https://api.exchangeratesapi.io/history?start_at=2020-01-01&end_at=2020-12-25&base=JPY&symbols=ILS')
-    # JOD = requests.get('https://api.exchangeratesapi.io/history?start_at=2020-01-01&end_at=2020-12-25&base=JOD&symbols=ILS')
 
-    # print('*' * 80)
-    # print(list(tuple(x.json()['rates'])))
-    # y = list(tuple(x.json()['rates']))
     usd = dict(USD.json()['rates'])
     usd = collections.OrderedDict(sorted(usd.items()))
     gbp = dict(GBP.json()['rates'])
@@ -62,7 +58,6 @@ class DisplayUser(TemplateView):
         GBP = latest_rate.GBP
         JPY = latest_rate.JPY
         ILS = latest_rate.ILS
-        # print(latest_rate)
         return render(
             request,
             'currnecy_order.html',
@@ -72,7 +67,7 @@ class DisplayUser(TemplateView):
                 'GBP': GBP,
                 'JPY': JPY / 100,
                 'ILS': ILS,
-                'trans': models.trans_table(request.session['logged_id'])
+                'context': models.trans_table(request.session['logged_id'])
             })
 
 
@@ -163,12 +158,7 @@ def currency_order(request):
         context ={
             'trans': models.trans_table(request.session['logged_id'])
         }
-
         trans =  models.trans_table(request.session['logged_id'])
-        
-        # print(context, '*******************')
-    # current_rates = requests.get('http://data.fixer.io/api/latest?access_key=4405fe87f8ab4f75dc9765319b17f661&symbols=USD,JOD,GBP,JPY,ILS')
-    # # {"success":true,"timestamp":1608912426,"base":"EUR","date":"2020-12-25","rates":{"USD":1.22085,"JOD":0.865592,"GBP":0.901658,"JPY":126.327423,"ILS":3.931082}}
         return render(request, "currnecy_order.html", context)
     return('/')
 
@@ -178,29 +168,3 @@ def edit_user(request):
 
 def privacy(request):
     return render(request, 'privacy.html')
-# def highcharts(request):
-#     x = requests.get('https://api.exchangeratesapi.io/history?start_at=2020-01-01&end_at=2020-12-25&base=USD&symbols=ILS')
-#     print('*' * 80)
-#     # print(list(tuple(x.json()['rates'])))
-#     # y = list(tuple(x.json()['rates']))
-#     z = dict(x.json()['rates'])
-#     z = collections.OrderedDict(sorted(z.items()))
-#     print(z)
-#     list1 =[]
-#     for key in z:
-#         rate = z[key]['ILS']
-#         # key += " 00:00:00"
-#         year = datetime.strptime(key, '%Y-%m-%d').timestamp() * 1000
-#         print('*' * 80)
-#         print(int(year))
-#         # print('-' * 80)
-#         # print(year)
-#         list1.append([int(year), rate])
-#
-#     context = {
-#         'list1': list1
-#     }
-#     # seconds_since_epoch = datetime.datetime.now()
-#     # print(int(seconds_since_epoch))
-#     return render(request, 'highcharts.html', context)
-
