@@ -60,15 +60,17 @@
                 <tdead><th scope="col">Transaction</th><th scope="col">Date : Time</th><th scope="col">From</th><th scope="col">Amount</th><th scope="col">To</th><th scope="col">Amount</th><th scope="col">Rate</th>
                 </tdead>
                 <tbody>
-                        <tr>
-                        <td>7835279875juef3</td>
-                        <td>2020-12-23 : 06:15 PM</td>
-                        <td>USD</td>
-                        <td>100</td>
-                        <td>ILS</td>
-                        <td>325</td>
-                        <td>3.25</td>
-                        </tr>
+                    {% for tran in trans %}
+                    <tr>
+                        <td>{{tran.id}}</td>
+                        <td>{{tran.created_at}}</td>
+                        <td>{{tran.fromC}}</td>
+                        <td>{{tran.amount}}</td>
+                        <td>{{tran.toC}}</td>
+                        <td>200</td>
+                        <td>{{tran.rate.GBP}}</td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

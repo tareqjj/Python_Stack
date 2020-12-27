@@ -62,7 +62,7 @@ class DisplayUser(TemplateView):
         GBP = latest_rate.GBP
         JPY = latest_rate.JPY
         ILS = latest_rate.ILS
-        print(latest_rate)
+        # print(latest_rate)
         return render(
             request,
             'currnecy_order.html',
@@ -72,6 +72,7 @@ class DisplayUser(TemplateView):
                 'GBP': GBP,
                 'JPY': JPY / 100,
                 'ILS': ILS,
+                'trans': models.trans_table(request.session['logged_id'])
             })
 
 
@@ -89,7 +90,7 @@ def transfer(request):
             messages.error(request, value)
         return redirect('/payment')
     else:
-        models.Transfer(request.POST)
+        models.Transfer(request.POST, request.session['logged_id'])
         return redirect('/')
 
 
@@ -182,10 +183,22 @@ def log_out(request):
 
 
 def currency_order(request):
+    if 'logged_id' in request.session:
+        context ={
+            'trans': models.trans_table(request.session['logged_id'])
+        }
+
+        trans =  models.trans_table(request.session['logged_id'])
+        
+        # print(context, '*******************')
     # current_rates = requests.get('http://data.fixer.io/api/latest?access_key=4405fe87f8ab4f75dc9765319b17f661&symbols=USD,JOD,GBP,JPY,ILS')
     # # {"success":true,"timestamp":1608912426,"base":"EUR","date":"2020-12-25","rates":{"USD":1.22085,"JOD":0.865592,"GBP":0.901658,"JPY":126.327423,"ILS":3.931082}}
-    return render(request, "currnecy_order.html")
+        return render(request, "currnecy_order.html", context)
+    return('/')
 
+def edit_user(request):
+    models.update_user(request.session['logged_id'], request.POST)
+    return redirect('/currency_order')   
 
 def privacy(request):
     return render(request, 'privacy.html')

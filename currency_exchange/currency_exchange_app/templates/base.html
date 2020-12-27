@@ -54,12 +54,26 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item active">
+                  <a class="nav-link text-warning" aria-current="page" href="/privacy">Support</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link text-warning" aria-current="page" href="/privacy">Contact us</a>
+                </li>
+                <li class="nav-item active">
                   <a class="nav-link text-warning" aria-current="page" href="/">Home</a>
                 </li>
+                {% if 'logged_id' not in request.session %}
                 <li class="nav-item">
                   <a class="nav-link text-warning" href="/LogInRegister">Log in/Register</a>
+                </li> {% else %}
+                <li class="nav-item">
+                  <a class="nav-link text-warning" href="/currency_order">News Feed</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-warning" href="/userInfo">Edit My Account</a>
                 </li>
               </ul>
+                {% endif %}
             </div>
           </div>
         </div>

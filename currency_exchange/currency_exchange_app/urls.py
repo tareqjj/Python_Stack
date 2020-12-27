@@ -16,6 +16,7 @@ urlpatterns = [
     path('payment', views.paymentInfo),
     path('Transfer', views.transfer),
     path('privacy', views.privacy),
+    path('update_user', views.edit_user),
     url(r'^check_reg/$', views.reg_validate, name='check_reg'),
     url(r'^check_login/$', views.login_validate, name='check_login'),
 ]
