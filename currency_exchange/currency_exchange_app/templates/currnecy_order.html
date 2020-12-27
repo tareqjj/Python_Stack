@@ -61,15 +61,15 @@
                 <tdead><th scope="col">Transaction</th><th scope="col">Date : Time</th><th scope="col">From</th><th scope="col">Amount</th><th scope="col">To</th><th scope="col">Amount</th><th scope="col">Rate</th>
                 </tdead>
                 <tbody>
-                    {% for tran in trans %}
+                    {% for tran in context.user_t %}
                     <tr>
                         <td>{{tran.id}}</td>
                         <td>{{tran.created_at}}</td>
                         <td>{{tran.fromC}}</td>
                         <td>{{tran.amount}}</td>
                         <td>{{tran.toC}}</td>
-                        <td>200</td>
-                        <td>{{tran.rate.GBP}}</td>
+                        <td>{{tran.rate}}</td>
+                        <td>{{tran.total}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -79,6 +79,7 @@
             <canvas id="myChart" ></canvas>
         </div>
     </div>
+    <br><br><br>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -92,6 +93,7 @@
         datasets: [{
             label: 'current rates against ILS',
             borderColor: '#ffc107',
+            backgroundColor: 'darkgray',
             data: [0, {{USD}}, {{JOD}}, {{GBP}}, {{JPY}}, {{ILS}}]
         }]
     },
